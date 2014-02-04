@@ -1,21 +1,21 @@
 {
     "amon": {
-        "url": "http://10.99.99.25"
+        "url": "http://amon.coal.joyent.us"
     },
     "cnapi": {
-        "url": "http://10.99.99.22"
+        "url": "http://cnapi.coal.joyent.us"
     },
     "imgapi": {
-        "url": "http://10.99.99.21"
+        "url": "http://imgapi.coal.joyent.us"
     },
     "napi": {
-        "url": "http://10.99.99.10"
+        "url": "http://napi.coal.joyent.us"
     },
     "sapi": {
-        "url": "http://10.99.99.35"
+        "url": "http://sapi.coal.joyent.us"
     },
     "ufds": {
-        "url": "ldaps://10.99.99.18:636",
+        "url": "ldaps://ufds.coal.joyent.us:636",
         "bindDN": "cn=root",
         "bindPassword": "secret",
         "cache": {
@@ -24,6 +24,6 @@
         }
     },
     "vmapi": {
-        "url": "http://10.99.99.28"
+        "url": "http://vmapi.coal.joyent.us"
     }
 }

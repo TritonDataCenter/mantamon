@@ -99,6 +99,7 @@ test('filter probes by role', function (t) {
         mantamon.filter_probes(opts, function (err2, probes) {
             t.ifError(err2);
             t.ok(probes);
+            probes = probes || [];
             t.ok(probes.length);
 
             probes.forEach(function (p) {
@@ -127,6 +128,7 @@ test('filter probes by machine', function (t) {
         mantamon.filter_probes(opts, function (err2, probes) {
             t.ifError(err2);
             t.ok(probes);
+            probes = probes || [];
             t.ok(probes.length);
 
             probes.forEach(function (p) {
@@ -151,12 +153,13 @@ test('read probe files (all)', function (t) {
             return;
         }
 
-        t.ok(probes.marlin);
-        t.ok(Array.isArray(probes.marlin));
-        t.ok(probes.marlin.length);
+        t.ok(probes.compute);
+        t.ok(Array.isArray(probes.compute));
+        probes.compute = probes.compute || [];
+        t.ok(probes.compute.length);
         t.ok(probes.nameservice);
         t.ok(Array.isArray(probes.nameservice));
-        t.ok(probes.nameservice.length);
+        t.ok((probes.nameservice || []).length);
         t.end();
     });
 });
