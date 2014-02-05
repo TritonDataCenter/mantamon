@@ -52,5 +52,19 @@
                 "type": "substring"
             }
         }
+    },
+    {
+        "name": "manatee-backups-failed-last-hour",
+        "type": "cmd",
+        "config": {
+            "cmd": ". /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%H' --date='1 hour ago'); for s in $(mls /poseidon/stor/manatee_backups | tr -d '/'); do /opt/local/bin/echo -n \"$s \"; mls /poseidon/stor/manatee_backups/$s/$DATE | grep '\\(manta_delete_log-\\)\\|\\(marlin_tasks_v2-\\)' >/dev/null; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi; done",
+            "interval": "300",
+            "threshold": "1",
+            "period": "3600",
+            "stdoutMatch": {
+                "pattern": "fail",
+                "type": "substring"
+            }
+        }
     }
 ]
