@@ -47,6 +47,7 @@
             "cmd": ". /root/.bashrc && test $(expr $(date +%s) - $(mjob get $(mjob list -n manta_gc -s running | head -1 | tr -d '/') | json timeCreated | xargs -i date --utc --date \"{}\" +%s)) -lt 3600; if [[ $? -eq 1 ]]; then echo \"fail\"; else echo \"success\"; fi",
             "interval": "300",
             "threshold": "1",
+            "timeout": 20,
             "stdoutMatch": {
                 "pattern": "fail",
                 "type": "substring"
