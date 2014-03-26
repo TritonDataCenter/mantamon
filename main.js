@@ -57,10 +57,6 @@ var LOG = bunyan.createLogger({
     serializers: restify.bunyan.serializers
 });
 
-//-- Hard-coded Amon user and contact names. This must exist in UFDS.
-var USER = 'poseidon';
-var USER_CONTACTS = ['email', 'pagerdutyemail'];
-
 
 
 ///--- Functions
@@ -127,8 +123,8 @@ function setup_clients(opts, cb) {
     opts.amon = new sdc.Amon(opts.config.amon);
     opts.sapi = new sdc.SAPI(opts.config.sapi);
     opts.vmapi = new sdc.VMAPI(opts.config.vmapi);
-    opts.user = USER;
-    opts.contacts = USER_CONTACTS;
+    opts.user = opts.config.user || 'poseidon';
+    opts.contacts = opts.config.contacts || ['email'];
 
     var params = {
         application: {
