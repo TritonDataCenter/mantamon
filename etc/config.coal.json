@@ -25,5 +25,10 @@
     },
     "vmapi": {
         "url": "http://vmapi.coal.joyent.us"
-    }
+    },
+    "user": "poseidon",
+    "contacts": [
+        "email",
+        "pagerdutyemail"
+    ]
 }
