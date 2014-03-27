@@ -1,0 +1,13 @@
+[
+    {
+        "name": "shrimp-nginx-ping-OS-2376",
+        "agent": "ops",
+        "type": "cmd",
+        "config": {
+            "cmd": "curl -m 5 -sf http://{{MANTA_STORAGE_ID}}/50x.html -o /dev/null",
+            "interval": "60",
+            "threshold": "3",
+            "period": "300"
+        }
+    }
+]

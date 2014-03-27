@@ -28,7 +28,6 @@
     },
     "user": "poseidon",
     "contacts": [
-        "email",
-        "pagerdutyemail"
+        "email"
     ]
 }
