@@ -51,6 +51,103 @@ will want to run `drop` first for the targeted system(s).
 Before describing the detailed options for each command, some sample workflows
 are given illustrating how to use mantamon.
 
+
+CONFIGURATION
+-------------
+
+There are a few notable steps that must be done in order to use `mantamon`
+effectively:
+
+- Set MANTA_DATACENTER in the environment
+- Add any `contacts` you wish to use in UFDS on the appropriate login
+- Set config file to use SDC endpoints, and define level:contact mappings
+
+As an example, here is a complete configuration file:
+
+    {
+      "amon": {
+        "url": "http://amon.coal.joyent.us"
+      },
+      "cnapi": {
+        "url": "http://cnapi.coal.joyent.us"
+      },
+      "imgapi": {
+        "url": "http://imgapi.coal.joyent.us"
+      },
+      "napi": {
+        "url": "http://napi.coal.joyent.us"
+      },
+      "sapi": {
+        "url": "http://sapi.coal.joyent.us"
+      },
+      "ufds": {
+        "url": "ldaps://ufds.coal.joyent.us:636",
+        "bindDN": "cn=root",
+        "bindPassword": "secret",
+        "cache": {
+          "size": 1000,
+          "expiry": 300
+        }
+      },
+      "vmapi": {
+        "url": "http://vmapi.coal.joyent.us"
+      },
+      "user": "poseidon",
+      "levels": {
+        "alert": [
+          "email",
+          "mantaxmpp"
+        ],
+        "info": [
+          "mantaxmpp"
+        ]
+      }
+    }
+
+Note that `user` is the UFDS user that the SAPI application is owned by,
+and `levels` is a set of alarm levels to Amon contacts mappings that `probe`
+templates define.  As example of adding an Amon contact:
+
+    [root@headnode (coal) ~]# sdc-ldap modify
+    dn: uuid=f0f01a38-9ac4-ceec-97be-81f43f21a545, ou=users, o=smartdc
+    changetype: modify
+    add: mantaxmpp
+    mantaxmpp: test@conference.joyent.com
+
+    modifying entry "uuid=f0f01a38-9ac4-ceec-97be-81f43f21a545, ou=users, o=smartdc"
+
+Probes are always defined in `/probes`, and have the following rules:
+
+- The name of the directory is the "role" in SAPI
+- Any definitions are merged with `common` (e.g., webapi+common)
+- Inside probes, never define $agent, unless you want the probe to run
+  somewhere else; an example of when to do this is "ping" probes.  If you do
+  set it, set it to $role_name
+- If you want a probe to run in the GZ, set `global: true` (and do not set the
+  agent field)
+- You can templatize `cmd` probe types with `{{SAPI-METADATA-KEY}}`
+
+An example probe:
+
+    [
+      {
+        "name": "shrimp-nginx-ping-OS-2376",
+        "agent": "ops",
+        "type": "cmd",
+        "config": {
+          "cmd": "curl -m 5 -sf http://{{MANTA_STORAGE_ID}}/50x.html -o /dev/null",
+          "interval": "60",
+          "threshold": "3",
+          "period": "300"
+        }
+      }
+    ]
+
+Lastly, note that if you want probes to be sync'd quickly, you will need to poke
+the Amon relays:
+
+    $ curl http://127.0.0.1:4307/state?action=syncprobes  -X POST
+
 EXAMPLE: Managing open alarms
 -----------------------------
 

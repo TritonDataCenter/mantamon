@@ -14,7 +14,6 @@
     {
         "name": "ZK: logscan 'Connection refused'",
         "type": "log-scan",
-        "agent": "{{VM_UUID}}",
         "config": {
             "path": "/var/log/zookeeper/zookeeper.out",
             "match": {

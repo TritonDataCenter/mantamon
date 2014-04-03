@@ -28,6 +28,16 @@
     },
     "user": "poseidon",
     "contacts": [
-        "email"
-    ]
+        "email",
+        "mantaxmpp"
+    ],
+    "levels": {
+        "alert": [
+            "email",
+            "mantaxmpp"
+        ],
+        "info": [
+            "mantaxmpp"
+        ]
+    }
 }

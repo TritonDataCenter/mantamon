@@ -54,7 +54,8 @@ var LOG = bunyan.createLogger({
     name: path.basename(process.argv[1]),
     level: (process.env.LOG_LEVEL || 'fatal'),
     stream: process.stderr,
-    serializers: restify.bunyan.serializers
+    serializers: restify.bunyan.serializers,
+    src: true
 });
 
 
@@ -123,8 +124,21 @@ function setup_clients(opts, cb) {
     opts.amon = new sdc.Amon(opts.config.amon);
     opts.sapi = new sdc.SAPI(opts.config.sapi);
     opts.vmapi = new sdc.VMAPI(opts.config.vmapi);
+    opts.levels = opts.config.levels;
+    opts.contacts = Object.keys(opts.levels).map(function (k) {
+        return (opts.levels[k]);
+    }).reduce(function (prev, cur) {
+        return (prev.concat(cur).filter(function (elem, pos, self) {
+            return (self.indexOf(elem) == pos);
+        }));
+    }, []);
     opts.user = opts.config.user || 'poseidon';
-    opts.contacts = opts.config.contacts || ['email'];
+
+    if (!opts.contacts.length) {
+        console.error('no contacts specified (must be set in "levels")');
+        process.exit(1);
+    }
+    opts.contacts.sort();
 
     var params = {
         application: {
@@ -329,15 +343,17 @@ MantaMon.prototype.do_probes = function do_probes(_, opts, args, cb) {
             mantamon.list_probes,
             mantamon.filter_probes,
             function print(__, _cb) {
-                var fmt = '%-18s %-8s %-8s %s';
+                var fmt = '%-15s %-7s %-8s %-8s %s';
                 if (!opts.H) {
-                    var h = sprintf(fmt, 'ROLE', 'MACHINE', 'PROBE', 'NAME');
+                    var h = sprintf(fmt, 'ROLE', 'LEVEL', 'MACHINE', 'PROBE',
+                                    'NAME');
                     console.log(h);
                 }
 
                 opts.probes.forEach(function (p) {
                     console.log(sprintf(fmt,
                                         p.role,
+                                        p.level,
                                         p.agent.substr(0, 7),
                                         p.uuid.substr(0, 7),
                                         p.name));
