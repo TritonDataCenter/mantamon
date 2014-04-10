@@ -1,7 +1,7 @@
 [
     {
         "name": "shrimp-nginx-ping-OS-2376",
-        "agent": "ops",
+        "agent": "webapi",
         "type": "cmd",
         "config": {
             "cmd": "curl -m 5 -sf http://{{MANTA_STORAGE_ID}}/50x.html -o /dev/null",
