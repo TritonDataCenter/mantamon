@@ -1,11 +1,58 @@
 [
     {
-        "name": "marlin: logscan 'ERROR'",
+        "name": "marlin-agent-logscan-error",
         "type": "bunyan-log-scan",
         "config": {
             "smfServiceName": "marlin-agent",
             "fields": {
                 "level": "error"
+            },
+            "threshold": 1,
+            "period": 60
+        },
+        "global": true
+    }, {
+        "name": "marlin-agent-logscan-fatal",
+        "type": "bunyan-log-scan",
+        "config": {
+            "smfServiceName": "marlin-agent",
+            "fields": {
+                "level": "fatal"
+            },
+            "threshold": 1,
+            "period": 60
+        },
+        "global": true
+    }, {
+        "name": "marlin-agent-logscan-core",
+        "type": "log-scan",
+        "config": {
+            "smfServiceName": "marlin-agent",
+            "match": {
+                "pattern": "Stopping because process dumped core."
+            },
+            "threshold": 1,
+            "period": 60
+        },
+        "global": true
+    }, {
+        "name": "logs not uploaded",
+        "type": "cmd",
+        "config": {
+            "cmd": "test ! $(find /var/log/manta/upload -type f | wc -l) -gt 0",
+            "interval": 300,
+            "threshold": 5,
+            "period": 1800
+        },
+        "global": true
+    }, {
+        "name": "svcs: SMF maintenance",
+        "type": "cmd",
+        "config": {
+            "cmd": "/usr/bin/svcs -x",
+            "stdoutMatch": {
+                "pattern": "maintenance",
+                "matchWord": true
             },
             "threshold": 1,
             "period": 60
