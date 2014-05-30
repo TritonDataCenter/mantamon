@@ -1,15 +1,16 @@
 [
     {
-      "name": "mackerel-logscan",
-      "type": "bunyan-log-scan",
-      "config": {
-        "path": "/var/log/mackerel.log",
-        "fields": {
+        "name": "mackerel-logscan",
+        "type": "bunyan-log-scan",
+        "level": "info",
+        "config": {
+            "path": "/var/log/mackerel.log",
+            "fields": {
                 "level": "FATAL"
-        },
-        "threshold": 1,
-        "period": 60
-      }
+            },
+            "threshold": 1,
+            "period": 60
+        }
     },
     {
         "name": "mola-logscan-error",
