@@ -3,7 +3,7 @@
         "name": "mola-create-link-files-piling-up",
         "type": "cmd",
         "config": {
-            "cmd": ". /root/.bashrc && test $(mfind /poseidon/stor/manta_gc/all/do | wc -l) -lt 15",
+            "cmd": "export HOME=/root && . /root/.bashrc && test $(mfind /poseidon/stor/manta_gc/all/do | wc -l) -lt 15",
             "interval": "300",
             "period": "1800",
             "threshold": "6",
@@ -14,7 +14,7 @@
         "name": "mola-moray-files-piling-up",
         "type": "cmd",
         "config": {
-            "cmd": ". /root/.bashrc && for s in $(mls /poseidon/stor/manta_gc/moray); do echo \"$s \"; test $(mls /poseidon/stor/manta_gc/moray/$s | wc -l) -lt 15; if [[ $? -eq 0 ]]; then echo \"success\"; else echo \"fail\"; fi; done",
+            "cmd": "export HOME=/root && . /root/.bashrc && for s in $(mls /poseidon/stor/manta_gc/moray); do echo \"$s \"; test $(mls /poseidon/stor/manta_gc/moray/$s | wc -l) -lt 15; if [[ $? -eq 0 ]]; then echo \"success\"; else echo \"fail\"; fi; done",
             "interval": "300",
             "period": "1800",
             "threshold": "6",
@@ -29,7 +29,7 @@
         "name": "mola-mako-files-piling-up",
         "type": "cmd",
         "config": {
-            "cmd": ". /root/.bashrc && for s in $(mls /poseidon/stor/manta_gc/mako); do echo \"$s \"; test $(mls /poseidon/stor/manta_gc/mako/$s | wc -l) -lt 15; if [[ $? -eq 0 ]]; then echo \"success\"; else echo \"fail\"; fi; done",
+            "cmd": "export HOME=/root && . /root/.bashrc && for s in $(mls /poseidon/stor/manta_gc/mako); do echo \"$s \"; test $(mls /poseidon/stor/manta_gc/mako/$s | wc -l) -lt 15; if [[ $? -eq 0 ]]; then echo \"success\"; else echo \"fail\"; fi; done",
             "interval": "300",
             "period": "1800",
             "threshold": "6",
@@ -44,7 +44,7 @@
         "name": "mola-job-running-too-long",
         "type": "cmd",
         "config": {
-            "cmd": ". /root/.bashrc && test $(expr $(date +%s) - $(mjob get $(mjob list -n manta_gc -s running | head -1 | tr -d '/') | json timeCreated | xargs -i date --utc --date \"{}\" +%s)) -lt 3600; if [[ $? -eq 1 ]]; then echo \"fail\"; else echo \"success\"; fi",
+            "cmd": "export HOME=/root && . /root/.bashrc && test $(expr $(date +%s) - $(mjob get $(mjob list -n manta_gc -s running | head -1 | tr -d '/') | json timeCreated | xargs -i date --utc --date \"{}\" +%s)) -lt 3600; if [[ $? -eq 1 ]]; then echo \"fail\"; else echo \"success\"; fi",
             "interval": "300",
             "threshold": "1",
             "timeout": 20,
@@ -58,7 +58,7 @@
         "name": "manatee-backups-failed-last-hour",
         "type": "cmd",
         "config": {
-            "cmd": ". /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%H' --date='1 hour ago'); echo $DATE; for s in $(mls /poseidon/stor/manatee_backups | tr -d '/'); do /opt/local/bin/echo -n \"$s \"; until [[ \"$MLS\" != '' ]]; do export MLS=$(mls /poseidon/stor/manatee_backups/$s/$DATE); done; echo \"$MLS\" | grep '\\(manta_delete_log-\\)\\|\\(marlin_tasks_v2-\\)' >/dev/null; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi; export MLS=''; done",
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%H' --date='1 hour ago'); echo $DATE; for s in $(mls /poseidon/stor/manatee_backups | tr -d '/'); do /opt/local/bin/echo -n \"$s \"; until [[ \"$MLS\" != '' ]]; do export MLS=$(mls /poseidon/stor/manatee_backups/$s/$DATE); done; echo \"$MLS\" | grep '\\(manta_delete_log-\\)\\|\\(marlin_tasks_v2-\\)' >/dev/null; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi; export MLS=''; done",
             "interval": "300",
             "threshold": "1",
             "period": "3600",
