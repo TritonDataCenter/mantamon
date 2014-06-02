@@ -58,7 +58,7 @@
         "name": "manatee-backups-failed-last-hour",
         "type": "cmd",
         "config": {
-            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%H' --date='1 hour ago'); echo $DATE; for s in $(mls /poseidon/stor/manatee_backups | tr -d '/'); do /opt/local/bin/echo -n \"$s \"; until [[ \"$MLS\" != '' ]]; do export MLS=$(mls /poseidon/stor/manatee_backups/$s/$DATE); done; echo \"$MLS\" | grep '\\(manta_delete_log-\\)\\|\\(marlin_tasks_v2-\\)' >/dev/null; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi; export MLS=''; done",
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%H' --date='4 hours ago'); echo $DATE; for s in $(mls /poseidon/stor/manatee_backups | tr -d '/'); do /opt/local/bin/echo -n \"$s \"; until [[ \"$MLS\" != '' ]]; do export MLS=$(mls /poseidon/stor/manatee_backups/$s/$DATE); done; echo \"$MLS\" | grep '\\(manta_delete_log-\\)\\|\\(marlin_tasks_v2-\\)' >/dev/null; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi; export MLS=''; done",
             "interval": "300",
             "threshold": "1",
             "period": "3600",
