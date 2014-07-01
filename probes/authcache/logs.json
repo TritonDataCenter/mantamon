@@ -1,0 +1,26 @@
+[
+    {
+        "name": "mahi-replicator-logscan-error",
+        "type": "bunyan-log-scan",
+        "config": {
+            "smfServiceName": "mahi-replicator",
+            "fields": {
+                "level": "ERROR"
+            },
+            "threshold": 1,
+            "period": 60
+        }
+    },
+    {
+        "name": "mahi-server-logscan-error",
+        "type": "bunyan-log-scan",
+        "config": {
+            "smfServiceName": "mahi-server",
+            "fields": {
+                "level": "ERROR"
+            },
+            "threshold": 1,
+            "period": 60
+        }
+    }
+]
