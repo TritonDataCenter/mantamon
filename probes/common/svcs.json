@@ -8,6 +8,7 @@
             "matchWord": true
         },
         "threshold": 1,
-        "period": 60
+        "period": 60,
+        "timeout": 30
     }
 }
