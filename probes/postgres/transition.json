@@ -3,7 +3,7 @@
         "name": "manatee-state-transition",
         "type": "log-scan",
         "config": {
-            "path": "/var/svc/log/sds-application-manatee-sitter:default.log",
+            "path": "/var/svc/log/manta-application-manatee-sitter:default.log",
             "match": {
                 "pattern": "finished transition"
             },
