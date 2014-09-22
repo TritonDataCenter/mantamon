@@ -32,7 +32,6 @@ TAP			:= ./node_modules/.bin/tap
 #
 # Files
 #
-DOC_FILES	 = index.restdown
 JS_FILES	:= $(shell ls *.js) $(shell find lib -name '*.js')
 JSON_FILES	 = package.json $(shell find probes -name '*.json')
 JSL_CONF_NODE	 = tools/jsl.node.conf
