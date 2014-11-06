@@ -13,6 +13,30 @@
         }
     },
     {
+        "name": "mola-pg-transform-logscan-error",
+        "type": "bunyan-log-scan",
+        "config": {
+            "path": "/var/log/mola-pg-transform.log",
+            "fields": {
+                "level": "ERROR"
+            },
+            "threshold": 1,
+            "period": 60
+        }
+    },
+    {
+        "name": "mola-pg-transform-logscan-fatal",
+        "type": "bunyan-log-scan",
+        "config": {
+            "path": "/var/log/mola-pg-transform.log",
+            "fields": {
+                "level": "FATAL"
+            },
+            "threshold": 1,
+            "period": 60
+        }
+    },
+    {
         "name": "mola-logscan-error",
         "type": "bunyan-log-scan",
         "config": {
