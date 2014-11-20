@@ -68,5 +68,65 @@
                 "type": "substring"
             }
         }
+    },
+    {
+        "name": "mackerel-summary-missing",
+        "type": "cmd",
+        "config": {
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d' --date='30 hours ago'); echo $DATE; mls /poseidon/stor/usage/summary/$DATE 2>&1 | grep .json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
+            "interval": "300",
+            "threshold": "1",
+            "period": "3600",
+            "timeout": "60",
+            "stdoutMatch": {
+                "pattern": "fail",
+                "type": "substring"
+            }
+        }
+    },
+    {
+        "name": "mackerel-storage-missing",
+        "type": "cmd",
+        "config": {
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/00' --date='12 hours ago'); echo $DATE; mls /poseidon/stor/usage/storage/$DATE 2>&1 | grep h00.json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
+            "interval": "300",
+            "threshold": "1",
+            "period": "3600",
+            "timeout": "60",
+            "stdoutMatch": {
+                "pattern": "fail",
+                "type": "substring"
+            }
+        }
+    },
+    {
+        "name": "mackerel-request-missing",
+        "type": "cmd",
+        "config": {
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%h' --date='2 hours ago'); echo $DATE; mls /poseidon/stor/usage/request/$DATE 2>&1 | grep .json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
+            "interval": "300",
+            "threshold": "1",
+            "period": "3600",
+            "timeout": "60",
+            "stdoutMatch": {
+                "pattern": "fail",
+                "type": "substring"
+            }
+        }
+    },
+    {
+        "name": "mackerel-compute-missing",
+        "type": "cmd",
+        "config": {
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%h' --date='2 hours ago'); echo $DATE; mls /poseidon/stor/usage/compute/$DATE 2>&1 | grep .json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
+            "interval": "300",
+            "threshold": "1",
+            "period": "3600",
+            "timeout": "60",
+            "stdoutMatch": {
+                "pattern": "fail",
+                "type": "substring"
+            }
+        }
     }
 ]
