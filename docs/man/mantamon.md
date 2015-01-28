@@ -141,7 +141,7 @@ An example probe:
 
     [
       {
-        "name": "shrimp-nginx-ping-OS-2376",
+        "name": "shrimp-nginx-ping",
         "agent": "ops",
         "type": "cmd",
         "config": {
