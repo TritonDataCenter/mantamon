@@ -1,6 +1,6 @@
 [
     {
-        "name": "shrimp-nginx-ping",
+        "name": "shrimp-nginx-ping-OS-2376",
         "agent": "webapi",
         "type": "cmd",
         "config": {
