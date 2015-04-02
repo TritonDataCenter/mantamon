@@ -128,5 +128,15 @@
                 "type": "substring"
             }
         }
+    },
+    {
+        "name": "wrasse-behind",
+        "type": "cmd",
+        "config": {
+            "cmd": "/opt/smartdc/mola/amon/checks/check-wrasse-behind",
+            "timeout": "180",
+            "interval": "3600",
+            "threshold": "1"
+        }
     }
 ]
