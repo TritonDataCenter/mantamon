@@ -4,9 +4,9 @@
         "type": "cmd",
         "config": {
             "cmd": "test ! $(mpstat -a 1 2 | tail -n 1 | nawk '{total=$13+$14} END {print total}') -gt 80",
-            "interval": 10,
-            "threshold": 12,
-            "period": 300,
+            "interval": 60,
+            "threshold": 23,
+            "period": 1800,
             "timeout": 30
         }
     }
