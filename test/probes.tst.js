@@ -121,13 +121,14 @@ test('filter probes by role', function (t) {
 
 
 test('filter probes by machine', function (t) {
+    var zone = APPLICATION.roles['loadbalancer'][0]['uuid'];
     var opts = {
         amon: AMON,
         application: APPLICATION,
         log: LOG,
         sapi: SAPI,
         vmapi: VMAPI,
-        machine: [Object.keys(APPLICATION.zones).pop()],
+        machine: [zone],
         user: 'poseidon'
     };
     mantamon.list_probes(opts, function (err) {

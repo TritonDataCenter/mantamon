@@ -5,7 +5,7 @@
 -->
 
 <!--
-    Copyright (c) 2014, Joyent, Inc.
+    Copyright (c) 2015, Joyent, Inc.
 -->
 
 # mantamon
@@ -27,6 +27,7 @@ deployment zone just do `man mantamon`.
 However, if you're an engineer and want to define additional probes for manta,
 read on.
 
+
 # Probes
 
 All probe files are stored by role under `/probes`.  In addition there is a
@@ -37,3 +38,24 @@ The probe files themselves are just JSON blobs that match what Amon wants,
 minus the `agent` bit.  If you want a probe to run in the GZ of a service's
 zone, just set the field `global: true` in the JSON blob (this is not an
 Amon thing, but mantamon figures it out for you).
+
+
+# Testing changes
+
+Run "make prepush" to run sanity checks and basic tests.  Before running, note
+that the tests assume:
+
+* You have a configuration file called "etc/config.json" relative to the
+  root of this repository, and it's correct for your SDC installation.  You can
+  use the template COAL configuration file in "etc/" as a start for this file.
+* Your dev environment has nameservers configured that will resolve the
+  hostnames in that configuration file (i.e., you can resolve the SDC hostnames
+  that appear in that config file).  If not, make sure your dev zone is on the
+  "admin" network for your SDC install and add at least one SDC resolver to
+  /etc/resolv.conf.
+* You have deployed Manta.
+* As part of your Manta deployment, you have configured alarms (i.e., run
+  "mantamon add").
+
+These tests are not a substitute for testing your change.  They're just sanity
+checks.
