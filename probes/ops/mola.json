@@ -103,7 +103,7 @@
         "name": "mackerel-request-missing",
         "type": "cmd",
         "config": {
-            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%h' --date='2 hours ago'); echo $DATE; mls /poseidon/stor/usage/request/$DATE 2>&1 | grep .json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%H' --date='2 hours ago'); echo $DATE; mls /poseidon/stor/usage/request/$DATE 2>&1 | grep .json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
             "interval": "300",
             "threshold": "1",
             "period": "3600",
@@ -118,7 +118,7 @@
         "name": "mackerel-compute-missing",
         "type": "cmd",
         "config": {
-            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%h' --date='2 hours ago'); echo $DATE; mls /poseidon/stor/usage/compute/$DATE 2>&1 | grep .json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
+            "cmd": "export HOME=/root && . /root/.bashrc && export DATE=$(date +'%Y/%m/%d/%H' --date='2 hours ago'); echo $DATE; mls /poseidon/stor/usage/compute/$DATE 2>&1 | grep .json; if [[ $? == 0 ]]; then echo 'pass'; else echo 'fail'; fi;",
             "interval": "300",
             "threshold": "1",
             "period": "3600",
