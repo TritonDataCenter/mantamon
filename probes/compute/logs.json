@@ -42,7 +42,8 @@
             "cmd": "test ! $(find /var/log/manta/upload -type f | wc -l) -gt 0",
             "interval": 300,
             "threshold": 5,
-            "period": 1800
+            "period": 1800,
+            "timeout": 30
         },
         "global": true
     }, {
@@ -55,7 +56,8 @@
                 "matchWord": true
             },
             "threshold": 1,
-            "period": 60
+            "period": 60,
+            "timeout": 30
         },
         "global": true
     }
