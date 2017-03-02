@@ -14,7 +14,7 @@
         "name": "mola-moray-files-piling-up",
         "type": "cmd",
         "config": {
-            "cmd": "export HOME=/root && . /root/.bashrc && for s in $(mls /poseidon/stor/manta_gc/moray); do echo \"$s \"; test $(mls /poseidon/stor/manta_gc/moray/$s | wc -l) -lt 150; if [[ $? -eq 0 ]]; then echo \"success\"; else echo \"fail\"; fi; done",
+            "cmd": "set -o errexit && set -o pipefail && export HOME=/root && . /root/.bashrc && mfind /poseidon/stor/manta_gc/moray | sed s,^/poseidon/stor/manta_gc/moray/,, | awk -F/ 'NF == 1 { dirs[$1] = 1; } NF == 2 { counts[$1]++; } END { for (dir in dirs) { count = counts[dir]; if (count > 150) { printf(\"%s\\t%d\\n%s\\n\", dir, count, \"fail\"); } } }'",
             "interval": "300",
             "period": "1800",
             "threshold": "6",
@@ -29,7 +29,7 @@
         "name": "mola-mako-files-piling-up",
         "type": "cmd",
         "config": {
-            "cmd": "export HOME=/root && . /root/.bashrc && for s in $(mls /poseidon/stor/manta_gc/mako); do echo \"$s \"; test $(mls /poseidon/stor/manta_gc/mako/$s | wc -l) -lt 150; if [[ $? -eq 0 ]]; then echo \"success\"; else echo \"fail\"; fi; done",
+            "cmd": "set -o errexit && set -o pipefail && export HOME=/root && . /root/.bashrc && mfind /poseidon/stor/manta_gc/mako | sed s,^/poseidon/stor/manta_gc/mako/,, | awk -F/ 'NF == 1 { dirs[$1] = 1; } NF == 2 { counts[$1]++; } END { for (dir in dirs) { count = counts[dir]; if (count > 150) { printf(\"%s\\t%d\\n%s\\n\", dir, count, \"fail\"); } } }'",
             "interval": "300",
             "period": "1800",
             "threshold": "6",
