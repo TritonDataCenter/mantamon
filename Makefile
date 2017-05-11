@@ -74,9 +74,17 @@ $(TAP): | $(NPM_EXEC)
 
 CLEAN_FILES += $(TAP) ./node_modules/tap
 
+#
+# Preserve the tests in case for some reason we do need to make changes to the
+# older software, but make sure that `make test` fails so that people can tell
+# this is the wrong place to make changes.
+#
 .PHONY: test
 test: $(TAP)
-	$(NPM) test
+	@echo ""
+	@echo "This repository is deprecated.  See "manta-adm alarm" instead.
+	@echo ""
+	exit 1
 
 $(MAN_OUTDIR):
 	mkdir -p $@
